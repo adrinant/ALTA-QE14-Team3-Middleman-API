@@ -28,6 +28,7 @@ public class MiddlemanAPI {
     public static String USERS_INVENTORY_ID = Constants.BASE_URL + "/users/inventory/{id}";
     public static String ADMINS_INVENTORY = Constants.BASE_URL + "/admins/inventory";
     public static String ADMINS_INVENTORY_ID = Constants.BASE_URL + "/admins/inventory/{id}";
+
     @Step("Get User profile")
     public void getUserProfiles() {
         SerenityRest.given()
