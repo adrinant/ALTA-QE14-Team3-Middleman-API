@@ -1,8 +1,12 @@
 package starter.middleman;
 
+import io.restassured.http.ContentType;
 import net.serenitybdd.rest.SerenityRest;
+import starter.stepdef.AuthStepDef;
 import starter.utils.Constants;
 import net.thucydides.core.annotations.Step;
+
+import java.io.File;
 
 public class MiddlemanAPI {
     public static String LOGIN = Constants.BASE_URL + "/login";
@@ -32,6 +36,13 @@ public class MiddlemanAPI {
     @Step("Get User profile")
     public void getUserProfiles() {
         SerenityRest.given()
-                .headers("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MSwiUm9sZSI6ImFkbWluIiwiZXhwIjoxNzE0NzQ3NTcyfQ.Ib9O1olYVfKIro4UmUaN9hJDd7vtkziAp03HvSoiiN4");
+                .headers("Authorization", "Bearer " + AuthStepDef.token);
+    }
+
+    @Step("Login Middleman API")
+    public void loginMiddlemanAPI(File JSON) {
+        SerenityRest.given()
+                .contentType(ContentType.JSON)
+                .body(JSON);
     }
 }
