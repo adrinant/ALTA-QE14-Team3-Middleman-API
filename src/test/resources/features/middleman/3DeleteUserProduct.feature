@@ -7,7 +7,7 @@ Feature: Delete user product
     Then Status code should be 204
     Examples:
       | id |  |
-      | 13 |  |
+      | 14 |  |
 
   @Capstone
   Scenario Outline: Delete product with invalid id

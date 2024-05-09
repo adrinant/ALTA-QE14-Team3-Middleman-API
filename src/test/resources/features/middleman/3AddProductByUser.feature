@@ -6,7 +6,7 @@ Feature: Add product by user
     Then Status code should be 201
     Examples:
       | product_name | unit | stock | price | product_image |
-      | Gulaku       | kg   | 5     | 15000 | gula.jpg      |
+      | Gulaku33     | kg   | 7     | 15000 | gula.jpg      |
 
   @Capstone
   Scenario Outline: Add product by user with invalid body

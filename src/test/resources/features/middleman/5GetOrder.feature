@@ -1,10 +1,14 @@
 Feature: Get Order
 
   @Capstone
-  Scenario: Get all history order by user
+  Scenario Outline: Get all history order by user
     Given Set path for order by user
     When Send request to get order
     Then Status code should be 200
+    And Validate json schema "<JsonSchema>"
+    Examples:
+      | JsonSchema                              |
+      | GetAllHistoryOrderByUserJsonSchema.json |
 
   @Capstone
   Scenario Outline: Get detail order with valid id
@@ -25,10 +29,14 @@ Feature: Get Order
       | qwe       |
 
   @Capstone
-  Scenario: Get all history order by admin
+  Scenario Outline: Get all history order by admin
     Given Set path for all history order by admin
     When Send request to get all history order
     Then Status code should be 200
+    And Validate json schema "<JsonSchema>"
+    Examples:
+      | JsonSchema                               |
+      | GetAllHistoryOrderByAdminJsonSchema.json |
 
   @Capstone
   Scenario: Get incoming order from user
