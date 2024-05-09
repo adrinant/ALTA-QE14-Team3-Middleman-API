@@ -9,6 +9,7 @@ import starter.middleman.MiddlemanAPI;
 public class GetOrderStepDef {
     @Steps
     MiddlemanAPI middlemanAPI;
+
     @Given("Set path for order by user")
     public void setPathForOrderByUser() {
         middlemanAPI.getHistoryOrderByUser();

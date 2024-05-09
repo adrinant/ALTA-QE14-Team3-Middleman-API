@@ -12,6 +12,7 @@ import java.io.File;
 public class CreateCartStepDef {
     @Steps
     MiddlemanAPI middlemanAPI;
+
     @Given("Set request with valid data product_id {string} and qty {string}")
     public void setRequestWithValidDataProduct_idAndQty(String product_id, String qty) {
         middlemanAPI.postCreateCartValidData(product_id, qty);

@@ -37,7 +37,7 @@ public class MiddlemanAPI {
     @Step("Get User profile")
     public void getUserProfiles() {
         SerenityRest.given()
-                .headers("Authorization", "Bearer "+ AuthStepDef.token);
+                .headers("Authorization", "Bearer " + AuthStepDef.token);
     }
 
     @Step("Login Middleman API")
@@ -48,59 +48,66 @@ public class MiddlemanAPI {
     }
 
     @Step("User Login with email and password")
-    public void postUserLogin(File json){
+    public void postUserLogin(File json) {
         SerenityRest.given().contentType(ContentType.JSON).body(json);
     }
+
     @Step("Register")
-    public void postRegister(File json){
+    public void postRegister(File json) {
         SerenityRest.given().contentType(ContentType.JSON).body(json);
     }
 
     @Step("Get list user products")
-    public void getUserProducts(){
+    public void getUserProducts() {
         SerenityRest.given()
-                .headers("Authorization", "Bearer "+AuthStepDef.token);
+                .headers("Authorization", "Bearer " + AuthStepDef.token);
     }
 
     @Step("Delete user product")
-    public void deleteUserProduct(int id){
-        SerenityRest.given().pathParam("id", id).headers("Authorization", "Bearer "+AuthStepDef.token);
+    public void deleteUserProduct(int id) {
+        SerenityRest.given().pathParam("id", id).headers("Authorization", "Bearer " + AuthStepDef.token);
     }
+
     @Step("Delete user product")
-    public void deleteUserProductinvalid(String id){
-        SerenityRest.given().pathParam("id", id).headers("Authorization", "Bearer "+AuthStepDef.token);
+    public void deleteUserProductinvalid(String id) {
+        SerenityRest.given().pathParam("id", id).headers("Authorization", "Bearer " + AuthStepDef.token);
     }
+
     @Step("Search user product")
-    public void getSearchUserProduct(String Parameter){
-        SerenityRest.given().pathParam("id", Parameter).headers("Authorization", "Bearer "+AuthStepDef.token);
+    public void getSearchUserProduct(String Parameter) {
+        SerenityRest.given().pathParam("id", Parameter).headers("Authorization", "Bearer " + AuthStepDef.token);
     }
+
     @Step("Update user product with valid id")
-    public void putUpdateUserProductValidId(int id, String product_name, String unit, String stock, String price){
+    public void putUpdateUserProductValidId(int id, String product_name, String unit, String stock, String price) {
         SerenityRest.given().pathParam("id", id)
                 .headers("Authorization", "Bearer " + AuthStepDef.token)
                 .contentType("multipart/form-data")
                 .multiPart("product_name", product_name)
                 .multiPart("unit", unit)
-                .multiPart("stock",stock)
+                .multiPart("stock", stock)
                 .multiPart("price", price);
     }
+
     @Step("Update user product with invalid id")
-    public void putUpdateUserProductInvalidId(String id, String product_name, String unit, String stock, String price){
+    public void putUpdateUserProductInvalidId(String id, String product_name, String unit, String stock, String price) {
         SerenityRest.given().pathParam("id", id)
                 .headers("Authorization", "Bearer " + AuthStepDef.token)
                 .contentType("multipart/form-data")
                 .multiPart("product_name", product_name)
                 .multiPart("unit", unit)
-                .multiPart("stock",stock)
+                .multiPart("stock", stock)
                 .multiPart("price", price);
     }
+
     @Step("Get carts")
-    public void getCarts(){
+    public void getCarts() {
         SerenityRest.given()
-                .headers("Authorization", "Bearer "+AuthStepDef.token);
+                .headers("Authorization", "Bearer " + AuthStepDef.token);
     }
+
     @Step("Create cart valid data")
-    public void postCreateCartValidData(String product_id, String qty){
+    public void postCreateCartValidData(String product_id, String qty) {
         SerenityRest.given()
                 .headers("Authorization", "Bearer " + AuthStepDef.token)
                 .contentType("multipart/form-data")
@@ -117,88 +124,102 @@ public class MiddlemanAPI {
     }
 
     @Step("Delete cart")
-    public void deleteCartValidId(int id){
+    public void deleteCartValidId(int id) {
         SerenityRest.given().pathParam("id", id)
-                .headers("Authorization", "Bearer "+AuthStepDef.token);
+                .headers("Authorization", "Bearer " + AuthStepDef.token);
     }
+
     @Step("Delete cart")
-    public void deleteCartInvalidId(String id){
+    public void deleteCartInvalidId(String id) {
         SerenityRest.given().pathParam("id", id)
-                .headers("Authorization", "Bearer "+AuthStepDef.token);
+                .headers("Authorization", "Bearer " + AuthStepDef.token);
     }
+
     @Step("Create order")
-    public void postCreateOrder(File json){
+    public void postCreateOrder(File json) {
         SerenityRest.given().contentType(ContentType.JSON).body(json)
-                .headers("Authorization", "Bearer "+AuthStepDef.token);
+                .headers("Authorization", "Bearer " + AuthStepDef.token);
     }
+
     @Step("Get all history order by user")
-    public void getHistoryOrderByUser(){
+    public void getHistoryOrderByUser() {
         SerenityRest.given()
-                .headers("Authorization", "Bearer "+AuthStepDef.token);
+                .headers("Authorization", "Bearer " + AuthStepDef.token);
     }
+
     @Step("Get detail order with valid id")
     public void getDetailOrderValidId(int id) {
         SerenityRest.given().pathParam("id", id)
                 .headers("Authorization", "Bearer " + AuthStepDef.token);
     }
+
     @Step("Get detail order with invalid id")
     public void getDetailOrderInvalidId(String id) {
         SerenityRest.given().pathParam("id", id)
                 .headers("Authorization", "Bearer " + AuthStepDef.token);
     }
+
     @Step("Get all history order by admin")
-    public void getHistoryOrderByAdmin(){
+    public void getHistoryOrderByAdmin() {
         SerenityRest.given()
-                .headers("Authorization", "Bearer "+AuthStepDef.tokenAdmin);
+                .headers("Authorization", "Bearer " + AuthStepDef.tokenAdmin);
     }
+
     @Step("Get incoming order from user")
-    public void getIncomingOrderByAdmin(){
+    public void getIncomingOrderByAdmin() {
         SerenityRest.given()
-                .headers("Authorization", "Bearer "+AuthStepDef.tokenAdmin);
+                .headers("Authorization", "Bearer " + AuthStepDef.tokenAdmin);
     }
+
     @Step("Update to confirm order with valid id")
-    public void putConfirmOrderValidId(int id){
+    public void putConfirmOrderValidId(int id) {
         SerenityRest.given().pathParam("id", id)
                 .headers("Authorization", "Bearer " + AuthStepDef.tokenAdmin);
     }
+
     @Step("Update to confirm order with invalid id")
     public void putConfirmOrderInvalidId(String id) {
         SerenityRest.given().pathParam("id", id)
                 .headers("Authorization", "Bearer " + AuthStepDef.tokenAdmin);
     }
+
     @Step("Update to finish order with valid id")
-    public void putFinishOrderValidId(int id){
+    public void putFinishOrderValidId(int id) {
         SerenityRest.given().pathParam("id", id)
                 .headers("Authorization", "Bearer " + AuthStepDef.tokenAdmin);
     }
+
     @Step("Update to finish order with invalid id")
-    public void putFinishOrderInvalidId(String id){
+    public void putFinishOrderInvalidId(String id) {
         SerenityRest.given().pathParam("id", id)
                 .headers("Authorization", "Bearer " + AuthStepDef.tokenAdmin);
     }
+
     @Step("Update cart product quantity with valid id")
-    public void putUpdateCartValidId(int id, String qty){
+    public void putUpdateCartValidId(int id, String qty) {
         SerenityRest.given().pathParam("id", id)
                 .headers("Authorization", "Bearer " + AuthStepDef.token)
                 .contentType("multipart/form-data")
                 .multiPart("qty", qty);
     }
+
     @Step("Update product quantity with invalid id")
-    public void putUpdateCartInvalidId(String id, String qty){
+    public void putUpdateCartInvalidId(String id, String qty) {
         SerenityRest.given().pathParam("id", id)
                 .headers("Authorization", "Bearer " + AuthStepDef.token)
                 .contentType("multipart/form-data")
                 .multiPart("qty", qty);
     }
-    @Step ("post Add Product By User")
-    public void postAddProductByUser(String product_name, String unit, String stock, String price, File images){
+
+    @Step("post Add Product By User")
+    public void postAddProductByUser(String product_name, String unit, String stock, String price, File images) {
         SerenityRest.given()
                 .headers("Authorization", "Bearer " + AuthStepDef.token)
                 .contentType("multipart/form-data")
                 .multiPart("product_name", product_name)
                 .multiPart("unit", unit)
-                .multiPart("stock",stock)
+                .multiPart("stock", stock)
                 .multiPart("price", price)
-                .multiPart("product_image",images);
+                .multiPart("product_image", images);
     }
 }

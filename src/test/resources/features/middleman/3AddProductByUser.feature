@@ -1,4 +1,5 @@
 Feature: Add product by user
+
   @Capstone
   Scenario Outline: Add product by User
     Given Post add product by user with valid data product_name "<product_name>", unit "<unit>", stock "<stock>", price "<price>", product_image "<product_image>"

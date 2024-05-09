@@ -25,7 +25,7 @@ public class UpdateCartStepDef {
 
     @Given("Set parameter to update cart valid id {} and request invalid data qty {string}")
     public void setParameterToUpdateCartValidIdAndRequestInvalidDataQty(int id, String qty) {
-        middlemanAPI.putUpdateCartValidId(id,qty);
+        middlemanAPI.putUpdateCartValidId(id, qty);
     }
 
     @When("Send request to update cart")

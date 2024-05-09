@@ -9,6 +9,7 @@ import starter.middleman.MiddlemanAPI;
 public class GetCartsStepDef {
     @Steps
     MiddlemanAPI middlemanAPI;
+
     @Given("Set path for carts")
     public void setPathForCarts() {
         middlemanAPI.getCarts();

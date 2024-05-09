@@ -9,6 +9,7 @@ import starter.middleman.MiddlemanAPI;
 public class DeleteCartStepDef {
     @Steps
     MiddlemanAPI middlemanAPI;
+
     @Given("Set carts id with {int}")
     public void setCartsIdWith(int id) {
         middlemanAPI.deleteCartValidId(id);

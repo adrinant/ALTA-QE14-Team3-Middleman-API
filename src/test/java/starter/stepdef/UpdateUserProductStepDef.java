@@ -27,11 +27,11 @@ public class UpdateUserProductStepDef {
     public void setParameterToValidIdAndInvalidDataProduct_nameUnitStockPrice(int id, String product_name, String unit, String stock, String price) {
         middlemanAPI.putUpdateUserProductValidId(id, product_name, unit, stock, price);
     }
+
     @When("Send request to update user product")
     public void sendRequestToUpdateUserProduct() {
         SerenityRest.when().put(MiddlemanAPI.USERS_PRODUCTS_ID);
     }
-
 
 
 }

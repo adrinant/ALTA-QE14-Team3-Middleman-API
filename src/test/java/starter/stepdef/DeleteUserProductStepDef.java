@@ -9,6 +9,7 @@ import starter.middleman.MiddlemanAPI;
 public class DeleteUserProductStepDef {
     @Steps
     MiddlemanAPI middlemanAPI;
+
     @Given("Set id with {int}")
     public void setIdWith(int id) {
         middlemanAPI.deleteUserProduct(id);

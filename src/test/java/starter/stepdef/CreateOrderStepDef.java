@@ -12,9 +12,10 @@ import java.io.File;
 public class CreateOrderStepDef {
     @Steps
     MiddlemanAPI middlemanAPI;
+
     @Given("Set request body to create order with {string}")
     public void setRequestBodyToCreateOrderWith(String json) {
-        File jsonfile = new File(Constants.REQ_BODY+json);
+        File jsonfile = new File(Constants.REQ_BODY + json);
         middlemanAPI.postCreateOrder(jsonfile);
     }
 

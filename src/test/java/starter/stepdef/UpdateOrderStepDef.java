@@ -9,6 +9,7 @@ import starter.middleman.MiddlemanAPI;
 public class UpdateOrderStepDef {
     @Steps
     MiddlemanAPI middlemanAPI;
+
     @Given("Set path to confirm order with {int}")
     public void setPathToConfirmOrderWith(int ValidId) {
         middlemanAPI.putConfirmOrderValidId(ValidId);

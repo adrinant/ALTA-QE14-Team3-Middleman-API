@@ -12,9 +12,10 @@ import java.io.File;
 public class RegisterStepDef {
     @Steps
     MiddlemanAPI middlemanAPI;
+
     @Given("Set request body with valid data enetered with json {string}")
     public void setRequestBodyWithValidDataEneteredWithJson(String json) {
-        File jsonfile = new File(Constants.REQ_BODY+json);
+        File jsonfile = new File(Constants.REQ_BODY + json);
         middlemanAPI.postRegister(jsonfile);
     }
 
@@ -26,7 +27,7 @@ public class RegisterStepDef {
 
     @Given("Set request body with invalid data enetered with json {string}")
     public void setRequestBodyWithInvalidDataEneteredWithJson(String json) {
-        File jsonfile = new File(Constants.REQ_BODY+json);
+        File jsonfile = new File(Constants.REQ_BODY + json);
         middlemanAPI.postRegister(jsonfile);
     }
 }

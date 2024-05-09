@@ -29,6 +29,7 @@ public class AddProductByUserStepDef {
         File image = new File(filePath);
         middlemanAPI.postAddProductByUser(product_name, unit, stock, price, image);
     }
+
     @When("Send request to add product")
     public void sendRequestToAddProduct() {
         SerenityRest.when().post(MiddlemanAPI.USERS_PRODUCTS);

@@ -12,9 +12,10 @@ import java.io.File;
 public class LoginStepDef {
     @Steps
     MiddlemanAPI middlemanAPI;
+
     @Given("Set request body with valid email and password entered with json {string}")
     public void setRequestBodyWithValidEmailAndPasswordEnteredWithJson(String json) {
-        File jsonfile = new File(Constants.REQ_BODY+json);
+        File jsonfile = new File(Constants.REQ_BODY + json);
         middlemanAPI.postUserLogin(jsonfile);
     }
 
@@ -25,7 +26,7 @@ public class LoginStepDef {
 
     @Given("Set request body with invalid email and password entered with json {string}")
     public void setRequestBodyWithInvalidEmailAndPasswordEnteredWithJson(String json) {
-        File jsonfile = new File(Constants.REQ_BODY+json);
+        File jsonfile = new File(Constants.REQ_BODY + json);
         middlemanAPI.postUserLogin(jsonfile);
     }
 }

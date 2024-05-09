@@ -9,6 +9,7 @@ import starter.middleman.MiddlemanAPI;
 public class GetUserProductsStepDef {
     @Steps
     MiddlemanAPI middlemanAPI;
+
     @Given("Set path and token")
     public void setPathAndToken() {
         middlemanAPI.getUserProducts();

@@ -1,4 +1,5 @@
 Feature: Login
+
   @Capstone
   Scenario Outline:Login with valid email and password for user
     Given Set request body with valid email and password entered with json "<UserLoginBody>"
