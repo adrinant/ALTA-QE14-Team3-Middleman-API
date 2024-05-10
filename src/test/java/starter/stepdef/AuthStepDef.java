@@ -15,6 +15,7 @@ public class AuthStepDef {
 
     public static String token;
     public static String tokenAdmin;
+
     @Steps
     MiddlemanAPI middlemanAPI;
 
@@ -30,6 +31,13 @@ public class AuthStepDef {
         JsonPath jsonPathEvaluator = response.jsonPath();
         token = jsonPathEvaluator.get("data.token");
         //System.out.println(token);
+    }
+
+    @When("User Send request post login admin")
+    public void userSendRequestPostLoginAdmin() {
+        Response response = SerenityRest.when().post(MiddlemanAPI.LOGIN);
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        tokenAdmin = jsonPathEvaluator.get("data.token");
     }
 
 }
