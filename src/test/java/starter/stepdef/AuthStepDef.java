@@ -39,4 +39,5 @@ public class AuthStepDef {
         JsonPath jsonPathEvaluator = response.jsonPath();
         tokenAdmin = jsonPathEvaluator.get("data.token");
     }
+
 }
