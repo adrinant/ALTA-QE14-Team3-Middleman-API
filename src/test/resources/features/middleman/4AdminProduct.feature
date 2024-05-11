@@ -4,7 +4,7 @@ Feature: Admin products
   @Capstone @Admin @Product
   #Positive TC-1
   Scenario: Add product by Admin
-    Given Post add product by admin with valid data product_name "Beras Regression 2", unit "kg", stock "22", price "22222", product_image "BerasLele.jpg"
+    Given Post add product by admin with valid data product_name "Beras Regression 4", unit "kg", stock "40", price "22222", product_image "BerasLele.jpg"
     When Send request post update product
     Then Status code should be 201
     And Validate json schema "AddProductJsonSchema.json"
@@ -33,7 +33,7 @@ Feature: Admin products
   @Capstone @Admin @Product
   #Positive-TC4
   Scenario: Update product data
-    Given Put update product by admin with valid data product_name "BerasMcLaren", unit "kg", stock "9", price "9999", product_image "BerasLele.jpg" and set parameter to 70
+    Given Put update product by admin with valid data product_name "Beras McLaren", unit "kg", stock "9", price "9999", product_image "BerasLele.jpg" and set parameter to 70
     When Send request put update product
     Then Status code should be 200
     And Validate json schema "UpdateProductJsonSchema.json"

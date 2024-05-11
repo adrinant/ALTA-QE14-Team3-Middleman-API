@@ -15,7 +15,7 @@ public class AuthStepDef {
 
     public static String token;
     public static String tokenAdmin;
-    public static String tokenDelete = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NTEsIlJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE1NDc5NTMzfQ.lILpalMFX8xakPfOELzNst7mUCfUXIre4t8sBqxUPuM";
+    public static String tokenDelete = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NTEsIlJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE1NTA5OTM5fQ.xc8pA80dvg2SWooMisa2FSueLmCpiBzOPUVdQCUfC1o";
 
     @Steps
     MiddlemanAPI middlemanAPI;

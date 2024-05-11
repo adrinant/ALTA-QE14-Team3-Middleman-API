@@ -17,7 +17,7 @@ Feature: User Products
     And Validate json schema "AddProductJsonSchema.json"
     Examples:
       | product_name | unit | stock | price | product_image |
-      | Gulayes3     | kg   | 5     | 15000 | Gulaku.jpg    |
+      | Gulayes4     | kg   | 5     | 15000 | Gulaku.jpg    |
 
   #Negative
   @Capstone @User @Product
