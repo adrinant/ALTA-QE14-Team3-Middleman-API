@@ -11,6 +11,7 @@ import java.io.File;
 public class UserProductStepDef {
     @Steps
     MiddlemanAPI middlemanAPI;
+
     @Given("Set path and token")
     public void setPathAndToken() {
         middlemanAPI.getUserProducts();

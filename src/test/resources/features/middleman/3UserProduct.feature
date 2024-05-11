@@ -27,7 +27,7 @@ Feature: User Products
     Then Status code should be 400
     Examples:
       | product_name | unit | stock | price | product_image |
-      |              |      |       |       | Gulaku.jpg         |
+      |              |      |       |       | Gulaku.jpg    |
 
   #Positive
   @Capstone @User @Product
@@ -46,7 +46,7 @@ Feature: User Products
     When Send request to search
     Then Status code should be 404
     Examples:
-      | Parameter         |
+      | Parameter       |
       | productname=@!~ |
 
   @Capstone @User @Product

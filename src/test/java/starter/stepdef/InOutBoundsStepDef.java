@@ -65,12 +65,12 @@ public class InOutBoundsStepDef {
 
     @Given("Delete admin product inbounds by id {int}")
     public void deleteAdminProductInboundsById(int id) {
-        middlemanAPI.deleteInboundProductByValidId(id);
+        middlemanAPI.deleteAdminProductInboundsByValidId(id);
 
     }
 
-    @When("Send request delete product with valid id")
-    public void sendRequestDeleteProductWithValidId() {
+    @When("Send request delete inbounds")
+    public void sendRequestDeleteInbounds() {
         SerenityRest.when()
                 .delete(MiddlemanAPI.INOUTBOUNDS_ID);
     }
@@ -104,5 +104,34 @@ public class InOutBoundsStepDef {
     public void postCreateNewUserOutboundsWithoutProductIdWithInvalidRequestBody(String json) {
         File jsonFile = new File(Constants.REQ_BODY + json);
         middlemanAPI.postCreateNewUserOutboundsWithoutProductId(jsonFile);
+    }
+
+    @Given("Put update user outbounds product quantity with valid request body {string} and parameter {int}")
+    public void putUpdateUserOutboundsProductQuantityWithValidRequestBodyAndParameter(String json, int id) {
+        File jsonFile = new File(Constants.REQ_BODY + json);
+        middlemanAPI.putUpdateUserOutboundsProductQuantityWithValidRequestBody(id, jsonFile);
+    }
+
+    @When("Send request put update outbounds")
+    public void sendRequestPutUpdateOutbounds() {
+        SerenityRest.when()
+                .put(MiddlemanAPI.INOUTBOUNDS_ID);
+    }
+
+    @Given("Put update user outbounds product quantity with invalid request body {string} and parameter {int}")
+    public void putUpdateUserOutboundsProductQuantityWithInvalidRequestBodyAndParameter(String json, int id) {
+        File jsonFile = new File(Constants.REQ_BODY + json);
+        middlemanAPI.putUpdateUserOutboundsProductQuantityWithInvalidRequestBody(id, jsonFile);
+    }
+
+    @Given("Delete user product outbounds by id {int}")
+    public void deleteUserProductOutboundsById(int id) {
+        middlemanAPI.deleteUserOutboundsProduct(id);
+    }
+
+    @When("Send request delete outbounds")
+    public void sendRequestDeleteOutbounds() {
+        SerenityRest.when()
+                .delete(MiddlemanAPI.INOUTBOUNDS_ID);
     }
 }
