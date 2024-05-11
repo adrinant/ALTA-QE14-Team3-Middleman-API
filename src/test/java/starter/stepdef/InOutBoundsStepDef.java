@@ -14,64 +14,58 @@ public class InOutBoundsStepDef {
     @Steps
     MiddlemanAPI middlemanAPI;
 
-    // Get Cart for stock user and admin
-    @Given("Get inbound stock for user and admin")
-    public void getInboundStockForUserAndAdmin() {
-        middlemanAPI.getCartForStockUserAndAdmin();
+    @Given("Get admin products inbounds")
+    public void getAdminProductsInbounds() {
+        middlemanAPI.getInboundsOutbounds();
     }
 
-    @When("Send request get inbound stock for user and admin")
-    public void sendRequestGetInboundStockForUserAndAdmin() {
+    @When("Send request get admin inbounds")
+    public void sendRequestGetAdminInbounds() {
         SerenityRest.when()
                 .get(MiddlemanAPI.INOUTBOUNDS);
 
     }
 
-    // Post Create new inbound stock for user and admin
-    @Given("Post create new inbound stock for user and admin with valid request body {string}")
+    //Inbounds
+    @Given("Post create new admin inbounds with valid request body {string}")
     public void postCreateNewInboundStockForUserAndAdminWithValidRequestBody(String json) {
         File jsonFile = new File(Constants.REQ_BODY + json);
-        middlemanAPI.postCreateNewInboundStockForUserAndAdmin(jsonFile);
+        middlemanAPI.postCreateNewAdminInbounds(jsonFile);
     }
 
-    @When("Send request post inbound stock for user and admin")
-    public void sendRequestPostInboundStockForUserAndAdmin() {
+    @When("Send request post inbound")
+    public void sendRequestPostInbound() {
         SerenityRest.when()
                 .post(MiddlemanAPI.INOUTBOUNDS);
     }
 
-    // Post Create new inbound stock for user and admin without product id
-    @Given("Post create new inbound stock for user and admin with invalid request body {string}")
+    @Given("Post create new admin inbounds without product id with invalid request body {string}")
     public void postCreateNewInboundStockForUserAndAdminWithoutProductId(String json) {
         File jsonFile = new File(Constants.REQ_BODY + json);
-        middlemanAPI.postCreateNewInboundStockForUserAndAdminWithoutProductId(jsonFile);
-
+        middlemanAPI.postCreateNewAdminInboundsWithoutProductId(jsonFile);
     }
 
-    //Put update product with valid request body
-    @Given("Put update product with valid request body {string} and parameter {int}")
-    public void putUpdateProductWithValidRequestBody(String json, int id) {
+    @Given("Put update admin inbounds product quantity with valid request body {string} and parameter {int}")
+    public void putUpdateInboundsProductWithValidRequestBody(String json, int id) {
         File jsonFile = new File(Constants.REQ_BODY + json);
-        middlemanAPI.putUpdateProductWithValidRequestBody(id, jsonFile);
+        middlemanAPI.putUpdateAdminInboundsProductQuantityWithValidRequestBody(id, jsonFile);
     }
 
-    @When("Send request put update product with valid request body")
-    public void sendRequestPutUpdateProductWithValidRequestBody() {
+    @When("Send request put update inbounds")
+    public void sendRequestPutUpdateInbounds() {
         SerenityRest.when()
                 .put(MiddlemanAPI.INOUTBOUNDS_ID);
     }
 
-    //Put update product with invalid request body
-    @Given("Put update product with invalid request body {string} and parameter {int}")
-    public void putUpdateProductWithInvalidRequestBody(String json, int id) {
+    @Given("Put update admin inbounds product quantity with invalid request body {string} and parameter {int}")
+    public void putUpdateInboundsProductWithInvalidRequestBody(String json, int id) {
         File jsonFile = new File(Constants.REQ_BODY + json);
-        middlemanAPI.putUpdateProductWithInvalidRequestBody(id, jsonFile);
+        middlemanAPI.putUpdateAdminInboundsProductQuantityWithInvalidRequestBody(id, jsonFile);
     }
 
-
-    @Given("Delete product with valid product id {int}")
-    public void deleteProductWithValidProductId(int id) {
-        middlemanAPI.deleteProductWithValidProductId(id);
+    @Given("Delete admin product inbounds by id {int}")
+    public void deleteAdminProductInboundsById(int id) {
+        middlemanAPI.deleteInboundProductByValidId(id);
 
     }
 
@@ -81,5 +75,34 @@ public class InOutBoundsStepDef {
                 .delete(MiddlemanAPI.INOUTBOUNDS_ID);
     }
 
+    //Outbounds
+    @Given("Get user products outbounds")
+    public void getUserProductsOutbounds() {
+        middlemanAPI.getInboundsOutbounds();
+    }
 
+
+    @When("Send request get user outbounds")
+    public void sendRequestGetUserOutbounds() {
+        SerenityRest.when()
+                .get(MiddlemanAPI.INOUTBOUNDS);
+    }
+
+    @Given("Post create new user outbounds with valid request body {string}")
+    public void postCreateNewUserOutboundsWithValidRequestBody(String json) {
+        File jsonFile = new File(Constants.REQ_BODY + json);
+        middlemanAPI.postCreateNewUserOutbounds(jsonFile);
+    }
+
+    @When("Send request post outbounds")
+    public void sendRequestPostOutbounds() {
+        SerenityRest.when()
+                .post(MiddlemanAPI.INOUTBOUNDS);
+    }
+
+    @Given("Post create new user outbounds without product id with invalid request body {string}")
+    public void postCreateNewUserOutboundsWithoutProductIdWithInvalidRequestBody(String json) {
+        File jsonFile = new File(Constants.REQ_BODY + json);
+        middlemanAPI.postCreateNewUserOutboundsWithoutProductId(jsonFile);
+    }
 }

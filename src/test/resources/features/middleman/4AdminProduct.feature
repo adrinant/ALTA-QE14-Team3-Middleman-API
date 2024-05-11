@@ -1,56 +1,53 @@
 Feature: Admin products
+  Admin can manage product in Middleman API
 
-  @Capstone4
+  @Capstone @Admin @Product
   #Positive TC-1
   Scenario: Add product by Admin
-    Given Post add product by admin with valid data product_name "Beras Lele111", unit "kg", stock "11", price "11111", product_image "lele.jpeg"
+    Given Post add product by admin with valid data product_name "Beras Regression 2", unit "kg", stock "22", price "22222", product_image "BerasLele.jpg"
     When Send request post update product
     Then Status code should be 201
-    And Validate json schema "4PostAddProductByAdminValidSchema.json"
+    And Validate json schema "AddProductJsonSchema.json"
 
-  @Capstone4
+  @Capstone @Admin @Product
   #Negative TC-1
-  Scenario: Add product by Admin
-    Given Post add product by admin with valid data unit "kg", stock "4", price "8900", product_image "lele.jpeg"
+  Scenario: Add product by Admin without ProductName
+    Given Post add product by admin with valid data unit "kg", stock "4", price "8900", product_image "BerasLele.jpg"
     When Send request post update product
     Then Status code should be 400
 
-
-  @Capstone4
+  @Capstone @Admin @Product
   #Positive TC-2
-  Scenario: Get all Admin products for admin & User
-    Given get all admin products
+  Scenario: Get all Admin products
+    Given Get all admin products
     When Send request get admin products
     Then Status code should be 200
 
-
-  @Capstone4
+  @Capstone @Admin @Product
   #Positive-TC3
   Scenario: Search product data by admin
     Given Get search product data by admin
     When Send request to get product data
     Then Status code should be 200
 
-
-  @Capstone4
- #Positive-TC4
+  @Capstone @Admin @Product
+  #Positive-TC4
   Scenario: Update product data
-    Given Put update product by admin with valid data product_name "McLaren", unit "kg", stock "9", price "9999", product_image "lele.jpeg" and set parameter to 70
+    Given Put update product by admin with valid data product_name "BerasMcLaren", unit "kg", stock "9", price "9999", product_image "BerasLele.jpg" and set parameter to 70
     When Send request put update product
     Then Status code should be 200
-    And Validate json schema "4PutUpdateProductDataSchema.json"
+    And Validate json schema "UpdateProductJsonSchema.json"
 
-  @Capstone4
- #Negative-TC2
+  @Capstone @Admin @Product
+  #Negative-TC2
   Scenario: Update product data
-    Given Put update product by admin with invalid data product_name "", unit "kg", stock "6", price "9000", product_image "lele.jpeg" and set parameter to 70
+    Given Put update product by admin with invalid data product_name "", unit "kg", stock "6", price "9000", product_image "BerasLele.jpg" and set parameter to 70
     When Send request put update product
     Then Status code should be 400
 
-  @CapstoneX
- #Positive-TC5
-  Scenario: : Delete product by id
-    Given Delete product by id 99
+  @Capstone @Admin @Product
+  #Positive-TC5
+  Scenario: Admin Delete product by id
+    Given Delete product by id 101
     When Send request delete product
     Then Status code should be 204
-

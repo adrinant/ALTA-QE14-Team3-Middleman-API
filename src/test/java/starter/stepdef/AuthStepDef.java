@@ -15,6 +15,7 @@ public class AuthStepDef {
 
     public static String token;
     public static String tokenAdmin;
+    public static String tokenDelete = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6NTEsIlJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE1NDc5NTMzfQ.lILpalMFX8xakPfOELzNst7mUCfUXIre4t8sBqxUPuM";
 
     @Steps
     MiddlemanAPI middlemanAPI;
@@ -22,10 +23,10 @@ public class AuthStepDef {
     @Given("Login with valid JSON {string}")
     public void userValidAuthBodyJson(String JSON) {
         File jsonFile = new File(Constants.REQ_BODY + JSON);
-        middlemanAPI.loginMiddlemanAPI(jsonFile);
+        middlemanAPI.postUserLogin(jsonFile);
     }
 
-    @When("User Send request post login")
+    @When("User send request post login")
     public void userSendRequestPostLogin() {
         Response response = SerenityRest.when().post(MiddlemanAPI.LOGIN);
         JsonPath jsonPathEvaluator = response.jsonPath();
@@ -33,11 +34,39 @@ public class AuthStepDef {
         //System.out.println(token);
     }
 
-    @When("User Send request post login admin")
+    @When("User send request post login admin")
     public void userSendRequestPostLoginAdmin() {
         Response response = SerenityRest.when().post(MiddlemanAPI.LOGIN);
         JsonPath jsonPathEvaluator = response.jsonPath();
         tokenAdmin = jsonPathEvaluator.get("data.token");
+    }
+
+    @Given("Set request body with invalid email and password entered with json {string}")
+    public void setRequestBodyWithInvalidEmailAndPasswordEnteredWithJson(String json) {
+        File jsonfile = new File(Constants.REQ_BODY + json);
+        middlemanAPI.postUserLogin(jsonfile);
+    }
+
+    @When("Send request to login")
+    public void sendRequestToLogin() {
+        SerenityRest.when().post(MiddlemanAPI.LOGIN);
+    }
+
+    @Given("Set request body with valid data entered with json {string}")
+    public void setRequestBodyWithValidDataEnteredWithJson(String json) {
+        File jsonfile = new File(Constants.REQ_BODY + json);
+        middlemanAPI.postUserRegister(jsonfile);
+    }
+
+    @When("Send request to register")
+    public void sendRequestToRegister() {
+        SerenityRest.when().post(MiddlemanAPI.REGISTER);
+    }
+
+    @Given("Set request body with invalid data entered with json {string}")
+    public void setRequestBodyWithInvalidDataEnteredWithJson(String json) {
+        File jsonfile = new File(Constants.REQ_BODY + json);
+        middlemanAPI.postUserRegister(jsonfile);
     }
 
 }

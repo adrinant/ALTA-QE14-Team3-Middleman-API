@@ -2,7 +2,6 @@ package starter.middleman;
 
 import io.restassured.http.ContentType;
 import net.serenitybdd.rest.SerenityRest;
-import net.thucydides.core.annotations.Steps;
 import starter.stepdef.AuthStepDef;
 import starter.utils.Constants;
 import net.thucydides.core.annotations.Step;
@@ -14,7 +13,7 @@ public class MiddlemanAPI {
     public static String REGISTER = Constants.BASE_URL + "/register";
     public static String USERS = Constants.BASE_URL + "/users";
     public static String USERS_PRODUCTS = Constants.BASE_URL + "/users/products";
-    public static String USERS_PRODUCTS_SEARCH = Constants.BASE_URL + "/users/products/search";
+    public static String USERS_PRODUCTS_SEARCH = Constants.BASE_URL + "/users/products/search?{param}";
     public static String USERS_PRODUCTS_ID = Constants.BASE_URL + "/users/products/{id}";
     public static String ADMIN_PRODUCTS = Constants.BASE_URL + "/admins/products";
     public static String ADMIN_PRODUCTS_SEARCH = Constants.BASE_URL + "/admins/products/search";
@@ -34,80 +33,100 @@ public class MiddlemanAPI {
     public static String ADMINS_INVENTORY = Constants.BASE_URL + "/admins/inventory";
     public static String ADMINS_INVENTORY_ID = Constants.BASE_URL + "/admins/inventory/{id}";
 
-    //AUTH
-    //Login
-    @Step("Get User profile")
-    public void getUserProfiles() {
+    //Authentication
+    @Step("User Login with email and password")
+    public void postUserLogin(File json) {
         SerenityRest.given()
-                .headers("Authorization", "Bearer " + AuthStepDef.token);
-    }
-
-
-    //USERS
-    //Update User
-    @Step("Login Middleman API")
-    public void loginMiddlemanAPI(File JSON) {
-        SerenityRest.given()
-                .contentType(ContentType.JSON)
-                .body(JSON);
-    }
-
-
-    @Step("put Update user")
-    public void putUpdateUser(File json) {
-        SerenityRest.given()
-                .headers("Authorization", "Bearer " + AuthStepDef.token)
                 .contentType(ContentType.JSON)
                 .body(json);
     }
 
-    //Delete User
-    @Step("delete User")
+    @Step("Register with valid data")
+    public void postUserRegister(File json) {
+        SerenityRest.given()
+                .contentType(ContentType.JSON)
+                .body(json);
+    }
+
+    //============================================================================//
+
+    //Users
+
+    @Step("Get User profile")
+    public void getUserProfiles() {
+        SerenityRest.given()
+                .headers("Authorization", "Bearer " + AuthStepDef.tokenDelete);
+    }
+
+    @Step("Put Update user")
+    public void putUpdateUser(File json) {
+        SerenityRest.given()
+                .headers("Authorization", "Bearer " + AuthStepDef.tokenDelete)
+                .contentType(ContentType.JSON)
+                .body(json);
+    }
+
+    @Step("Delete User")
     public void deleteUser() {
-
-    @Step("User Login with email and password")
-    public void postUserLogin(File json) {
-        SerenityRest.given().contentType(ContentType.JSON).body(json);
+        SerenityRest.given()
+                .headers("Authorization", "Bearer " + AuthStepDef.tokenDelete);
     }
 
-    @Step("Register")
-    public void postRegister(File json) {
-        SerenityRest.given().contentType(ContentType.JSON).body(json);
-    }
+    //============================================================================//
 
+    //Users Product
     @Step("Get list user products")
     public void getUserProducts() {
-
         SerenityRest.given()
                 .headers("Authorization", "Bearer " + AuthStepDef.token);
     }
 
-
-    //ADMINS_PRODUCTS
-    //Update Product Positive
-    @Step("post Add Product By Admin")
-    public void postAddProductByAdmin(String product_name, String unit, String stock, String price, File images) {
+    @Step("Post Add Product By User")
+    public void postAddProductByUser(String product_name, String unit, String stock, String price, File images) {
         SerenityRest.given()
-
-    @Step("Delete user product")
-    public void deleteUserProduct(int id) {
-        SerenityRest.given().pathParam("id", id).headers("Authorization", "Bearer " + AuthStepDef.token);
+                .headers("Authorization", "Bearer " + AuthStepDef.token)
+                .contentType("multipart/form-data")
+                .multiPart("product_name", product_name)
+                .multiPart("unit", unit)
+                .multiPart("stock", stock)
+                .multiPart("price", price)
+                .multiPart("product_image", images);
     }
 
-    @Step("Delete user product")
-    public void deleteUserProductinvalid(String id) {
-        SerenityRest.given().pathParam("id", id).headers("Authorization", "Bearer " + AuthStepDef.token);
+    @Step("Update user product with valid id")
+    public void putUpdateUserProductValidId(int id, String product_name, String unit, String stock, String price, File imageFile) {
+        SerenityRest.given().pathParam("id", id)
+                .headers("Authorization", "Bearer " + AuthStepDef.token)
+                .contentType("multipart/form-data")
+                .multiPart("product_name", product_name)
+                .multiPart("unit", unit)
+                .multiPart("stock", stock)
+                .multiPart("price", price)
+                .multiPart("product_image", imageFile);
     }
 
     @Step("Search user product")
     public void getSearchUserProduct(String Parameter) {
-        SerenityRest.given().pathParam("id", Parameter).headers("Authorization", "Bearer " + AuthStepDef.token);
+        SerenityRest.given().pathParam("param", Parameter).headers("Authorization", "Bearer " + AuthStepDef.token);
     }
 
-    @Step("Update user product with valid id")
-    public void putUpdateUserProductValidId(int id, String product_name, String unit, String stock, String price) {
-        SerenityRest.given().pathParam("id", id)
-                .headers("Authorization", "Bearer " + AuthStepDef.token)
+    @Step("User Delete user product")
+    public void deleteUserProduct(int id) {
+        SerenityRest.given().pathParam("id", id).headers("Authorization", "Bearer " + AuthStepDef.token);
+    }
+
+    @Step("User Delete user product")
+    public void deleteUserProductinvalid(String id) {
+        SerenityRest.given().pathParam("id", id).headers("Authorization", "Bearer " + AuthStepDef.token);
+    }
+
+    //============================================================================//
+
+    //Admins Product
+    @Step("post Add Product By Admin")
+    public void postAddProductByAdmin(String product_name, String unit, String stock, String price, File images) {
+        SerenityRest.given()
+                .headers("Authorization", "Bearer " + AuthStepDef.tokenAdmin)
                 .contentType("multipart/form-data")
                 .multiPart("product_name", product_name)
                 .multiPart("unit", unit)
@@ -116,56 +135,34 @@ public class MiddlemanAPI {
                 .multiPart("product_image", images);
     }
 
-    // Update Product Negative
-    @Step("post Add Product By Admin with invalid data")
+    @Step("Post Add Product By Admin with invalid data")
     public void postAddProductByAdmin(String unit, String stock, String price, File images) {
         SerenityRest.given()
-                .headers("Authorization", "Bearer " + AuthStepDef.token)
+                .headers("Authorization", "Bearer " + AuthStepDef.tokenAdmin)
                 .contentType("multipart/form-data")
                 .multiPart("unit", unit)
                 .multiPart("stock", stock)
                 .multiPart("price", price)
                 .multiPart("product_image", images);
-
     }
 
-    // Get all admins products
-    @Step("get update products by admin")
+    @Step("Get update products by admin")
     public void getAdminProducts() {
         SerenityRest.given()
-                .headers("Authorization", "Bearer " + AuthStepDef.token);
+                .headers("Authorization", "Bearer " + AuthStepDef.tokenAdmin);
     }
 
-    // Get search product data
-    @Step("get search product data by admin")
+    @Step("Get search product data by admin")
     public void getSearchProductData() {
-                .multiPart("price", price);
-    }
-
-    @Step("Update user product with invalid id")
-    public void putUpdateUserProductInvalidId(String id, String product_name, String unit, String stock, String price) {
-        SerenityRest.given().pathParam("id", id)
-                .headers("Authorization", "Bearer " + AuthStepDef.token)
-                .contentType("multipart/form-data")
-                .multiPart("product_name", product_name)
-                .multiPart("unit", unit)
-                .multiPart("stock", stock)
-                .multiPart("price", price);
-    }
-
-    @Step("Get carts")
-    public void getCarts() {
         SerenityRest.given()
-                .headers("Authorization", "Bearer " + AuthStepDef.token);
+                .headers("Authorization", "Bearer " + AuthStepDef.tokenAdmin);
     }
 
-
-    // Put Update Product By Admin
-    @Step("put Update Product By Admin")
+    @Step("Put Update Product By Admin")
     public void putUpdateProductByAdmin(String product_name, String unit, String stock, String price, File images, int id) {
         SerenityRest.given()
                 .pathParam("id", id)
-                .headers("Authorization", "Bearer " + AuthStepDef.token)
+                .headers("Authorization", "Bearer " + AuthStepDef.tokenAdmin)
                 .contentType("multipart/form-data")
                 .multiPart("product_name", product_name)
                 .multiPart("unit", unit)
@@ -174,7 +171,7 @@ public class MiddlemanAPI {
                 .multiPart("product_image", images);
     }
 
-    @Step("put Update Product Invalid By Admin")
+    @Step("Put Update Product Invalid By Admin")
     public void putUpdateProductInvalidByAdmin(String product_name, String unit, String stock, String price, File images, int id) {
         SerenityRest.given()
                 .pathParam("id", id)
@@ -187,123 +184,23 @@ public class MiddlemanAPI {
                 .multiPart("product_image", images);
     }
 
-    // Delete User Product by Admin
-    @Step("delete product by id")
+    @Step("Admin Delete product by id")
     public void deleteProductById(int id) {
         SerenityRest.given()
-                .headers("Authorization", "Bearer " + AuthStepDef.token)
+                .headers("Authorization", "Bearer " + AuthStepDef.tokenAdmin)
                 .pathParam("id", id);
     }
 
-    // Get Cart for stock user and admin
-    @Step("Get Cart for stock user and admin")
-    public void getCartForStockUserAndAdmin() {
+    //============================================================================//
+
+    //Carts
+
+    @Step("Get carts")
+    public void getCarts() {
         SerenityRest.given()
                 .headers("Authorization", "Bearer " + AuthStepDef.token);
     }
 
-    // Post Create new inbound stock Positive
-    @Step("Post Create new inbound stock for user and admin")
-    public void postCreateNewInboundStockForUserAndAdmin(File json) {
-        SerenityRest.given()
-                .contentType(ContentType.JSON)
-                .body(json);
-    }
-
-    // Post create new inbound stock Negative
-    @Step("Post create new inbound stock for user and admin without product id")
-    public void postCreateNewInboundStockForUserAndAdminWithoutProductId(File json) {
-        SerenityRest.given()
-                .contentType(ContentType.JSON)
-                .body(json);
-    }
-
-    // Put Update request Body Positive
-    @Step("Put update product with valid request body")
-    public void putUpdateProductWithValidRequestBody(int id, File json) {
-        SerenityRest.given()
-                .headers("Authorization", "Bearer " + AuthStepDef.token)
-                .pathParam("id", id)
-                .contentType(ContentType.JSON)
-                .body(json);
-
-    }
-
-    // Put update request body negative
-    @Step("put update product with invalid request body")
-    public void putUpdateProductWithInvalidRequestBody(int id, File json) {
-        SerenityRest.given()
-                .headers("Authorization", "Bearer " + AuthStepDef.token)
-                .pathParam("id", id)
-                .contentType(ContentType.JSON)
-                .body(json);
-    }
-
-    // Delete Product By Valid Product Id
-    @Step("delete product with valid product id")
-    public void deleteProductWithValidProductId(int id) {
-        SerenityRest.given()
-                .headers("Authorization", "Bearer " + AuthStepDef.token)
-                .pathParam("id", id);
-
-    }
-
-    // Create Inventories form by user
-    @Step("Create invetories form by user")
-    public void postCreateInventoriesFormUser(File json) {
-        SerenityRest.given()
-                .headers("Authorization", "Bearer " + AuthStepDef.token)
-                .contentType(ContentType.JSON)
-                .body(json);
-    }
-
-    // Create inventories with invalid request body by user
-    @Step("Create Inventories with invalid request body")
-    public void postCreateInventoriesInvalidFormUser(File json) {
-        SerenityRest.given()
-                .headers("Authorization", "Bearer " + AuthStepDef.token)
-                .contentType(ContentType.JSON)
-                .body(json);
-    }
-
-    //Get all product forms
-    @Step("Get all product forms from inventory by user")
-    public void getAllProdutFormsByUser() {
-        SerenityRest.given()
-                .headers("Authorization", "Bearer " + AuthStepDef.token);
-    }
-
-    //  Get detailed product from inventory
-    @Step("Get detailed product from inventory by user and set parameter to {int}")
-    public void getDetailedProductByUser(int id) {
-        SerenityRest.given()
-                .headers("Authorization", "Bearer " + AuthStepDef.token)
-                .pathParam("id", id);
-    }
-
-    // Create a form to list product by admin
-    @Step("Create a form to list product by admin with valid json {string")
-    public void PostCreateFormByAdmin(File json) {
-        SerenityRest.given()
-                .headers("Authorization", "Bearer " + AuthStepDef.token)
-                .contentType(ContentType.JSON)
-                .body(json);
-    }
-
-    // Get All products forms by admin
-    @Step("Get all product forms from inventory by admin")
-    public void getAllProductFormsByAdmin() {
-        SerenityRest.given()
-                .headers("Authorization", "Bearer " + AuthStepDef.token);
-    }
-
-    // Get detailed product from inventory by admin
-    @Step("Get detailed product from inventory by admin")
-    public void getDetailedProductByAdmin(int id) {
-        SerenityRest.given()
-                .headers("Authorization", "Bearer " + AuthStepDef.token)
-                .pathParam("id", id);
-      
     @Step("Create cart valid data")
     public void postCreateCartValidData(String product_id, String qty) {
         SerenityRest.given()
@@ -321,6 +218,22 @@ public class MiddlemanAPI {
                 .multiPart("qty", qty);
     }
 
+    @Step("Update cart product quantity with valid id")
+    public void putUpdateCartValidId(int id, String qty) {
+        SerenityRest.given().pathParam("id", id)
+                .headers("Authorization", "Bearer " + AuthStepDef.token)
+                .contentType("multipart/form-data")
+                .multiPart("qty", qty);
+    }
+
+    @Step("Update product quantity with invalid id")
+    public void putUpdateCartInvalidId(String id, String qty) {
+        SerenityRest.given().pathParam("id", id)
+                .headers("Authorization", "Bearer " + AuthStepDef.token)
+                .contentType("multipart/form-data")
+                .multiPart("qty", qty);
+    }
+
     @Step("Delete cart")
     public void deleteCartValidId(int id) {
         SerenityRest.given().pathParam("id", id)
@@ -333,6 +246,9 @@ public class MiddlemanAPI {
                 .headers("Authorization", "Bearer " + AuthStepDef.token);
     }
 
+    //============================================================================//
+
+    //Orders
     @Step("Create order")
     public void postCreateOrder(File json) {
         SerenityRest.given().contentType(ContentType.JSON).body(json)
@@ -393,31 +309,131 @@ public class MiddlemanAPI {
                 .headers("Authorization", "Bearer " + AuthStepDef.tokenAdmin);
     }
 
-    @Step("Update cart product quantity with valid id")
-    public void putUpdateCartValidId(int id, String qty) {
-        SerenityRest.given().pathParam("id", id)
-                .headers("Authorization", "Bearer " + AuthStepDef.token)
-                .contentType("multipart/form-data")
-                .multiPart("qty", qty);
+    //Inbounds
+    @Step("Get inbounds outbounds")
+    public void getInboundsOutbounds() {
+        SerenityRest.given()
+                .headers("Authorization", "Bearer " + AuthStepDef.tokenAdmin);
     }
 
-    @Step("Update product quantity with invalid id")
-    public void putUpdateCartInvalidId(String id, String qty) {
-        SerenityRest.given().pathParam("id", id)
-                .headers("Authorization", "Bearer " + AuthStepDef.token)
-                .contentType("multipart/form-data")
-                .multiPart("qty", qty);
+    @Step("Post create new admin inbounds")
+    public void postCreateNewAdminInbounds(File json) {
+        SerenityRest.given()
+                .headers("Authorization", "Bearer " + AuthStepDef.tokenAdmin)
+                .contentType(ContentType.JSON)
+                .body(json);
     }
 
-    @Step("post Add Product By User")
-    public void postAddProductByUser(String product_name, String unit, String stock, String price, File images) {
+    @Step("Post create new admin inbounds without product id")
+    public void postCreateNewAdminInboundsWithoutProductId(File json) {
+        SerenityRest.given()
+                .headers("Authorization", "Bearer " + AuthStepDef.tokenAdmin)
+                .contentType(ContentType.JSON)
+                .body(json);
+    }
+
+    @Step("Put update admin inbounds product quantity with valid request body")
+    public void putUpdateAdminInboundsProductQuantityWithValidRequestBody(int id, File json) {
+        SerenityRest.given()
+                .headers("Authorization", "Bearer " + AuthStepDef.tokenAdmin)
+                .pathParam("id", id)
+                .contentType(ContentType.JSON)
+                .body(json);
+
+    }
+
+    @Step("Put update admin inbounds product quantity with invalid request body")
+    public void putUpdateAdminInboundsProductQuantityWithInvalidRequestBody(int id, File json) {
+        SerenityRest.given()
+                .headers("Authorization", "Bearer " + AuthStepDef.tokenAdmin)
+                .pathParam("id", id)
+                .contentType(ContentType.JSON)
+                .body(json);
+    }
+
+    @Step("Delete admin product inbounds by id")
+    public void deleteInboundProductByValidId(int id) {
+        SerenityRest.given()
+                .headers("Authorization", "Bearer " + AuthStepDef.tokenAdmin)
+                .pathParam("id", id);
+    }
+
+    //Outbounds
+    @Step("Post create new user outbounds")
+    public void postCreateNewUserOutbounds(File json) {
         SerenityRest.given()
                 .headers("Authorization", "Bearer " + AuthStepDef.token)
-                .contentType("multipart/form-data")
-                .multiPart("product_name", product_name)
-                .multiPart("unit", unit)
-                .multiPart("stock", stock)
-                .multiPart("price", price)
-                .multiPart("product_image", images);
+                .contentType(ContentType.JSON)
+                .body(json);
     }
+
+    @Step("Post create new user outbounds without product id")
+    public void postCreateNewUserOutboundsWithoutProductId(File json) {
+        SerenityRest.given()
+                .headers("Authorization", "Bearer " + AuthStepDef.token)
+                .contentType(ContentType.JSON)
+                .body(json);
+    }
+
+    //============================================================================//
+
+    //Inventories
+
+    // Create Inventories form by user
+    @Step("Create invetories form by user")
+    public void postCreateInventoriesFormUser(File json) {
+        SerenityRest.given()
+                .headers("Authorization", "Bearer " + AuthStepDef.token)
+                .contentType(ContentType.JSON)
+                .body(json);
+    }
+
+    // Create inventories with invalid request body by user
+    @Step("Create Inventories with invalid request body")
+    public void postCreateInventoriesInvalidFormUser(File json) {
+        SerenityRest.given()
+                .headers("Authorization", "Bearer " + AuthStepDef.token)
+                .contentType(ContentType.JSON)
+                .body(json);
+    }
+
+    //Get all product forms
+    @Step("Get all product forms from inventory by user")
+    public void getAllProdutFormsByUser() {
+        SerenityRest.given()
+                .headers("Authorization", "Bearer " + AuthStepDef.token);
+    }
+
+    //  Get detailed product from inventory
+    @Step("Get detailed product from inventory by user and set parameter to {int}")
+    public void getDetailedProductByUser(int id) {
+        SerenityRest.given()
+                .headers("Authorization", "Bearer " + AuthStepDef.token)
+                .pathParam("id", id);
+    }
+
+    // Create a form to list product by admin
+    @Step("Create a form to list product by admin with valid json {string")
+    public void PostCreateFormByAdmin(File json) {
+        SerenityRest.given()
+                .headers("Authorization", "Bearer " + AuthStepDef.token)
+                .contentType(ContentType.JSON)
+                .body(json);
+    }
+
+    // Get All products forms by admin
+    @Step("Get all product forms from inventory by admin")
+    public void getAllProductFormsByAdmin() {
+        SerenityRest.given()
+                .headers("Authorization", "Bearer " + AuthStepDef.token);
+    }
+
+    // Get detailed product from inventory by admin
+    @Step("Get detailed product from inventory by admin")
+    public void getDetailedProductByAdmin(int id) {
+        SerenityRest.given()
+                .headers("Authorization", "Bearer " + AuthStepDef.token)
+                .pathParam("id", id);
+    }
+
 }

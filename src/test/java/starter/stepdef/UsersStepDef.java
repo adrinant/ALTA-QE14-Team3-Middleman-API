@@ -14,7 +14,6 @@ public class UsersStepDef {
     @Steps
     MiddlemanAPI middlemanAPI;
 
-    //GET USER
     @Given("Get Single User profile")
     public void getSingleUserProfile() {
         middlemanAPI.getUserProfiles();
@@ -26,7 +25,6 @@ public class UsersStepDef {
                 .get(MiddlemanAPI.USERS);
     }
 
-    // putUPDATE USER
     @Given("Put update a user profile with valid json {string}")
     public void putUpdateAUserProfileWithValidJsonAndParameterId(String json) {
         File jsonFile = new File(Constants.REQ_BODY + json);
@@ -39,8 +37,7 @@ public class UsersStepDef {
                 .put(MiddlemanAPI.USERS);
     }
 
-    //Delete User
-    @Given("delete user profile")
+    @Given("Delete user profile")
     public void deleteUserProfile() {
         middlemanAPI.deleteUser();
     }
@@ -50,4 +47,5 @@ public class UsersStepDef {
         SerenityRest.when()
                 .delete(MiddlemanAPI.USERS);
     }
+
 }
