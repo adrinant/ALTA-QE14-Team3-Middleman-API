@@ -1,0 +1,19 @@
+{
+  "grand_total": 90000,
+  "items": [
+    {
+      "id": 4,
+      "product_name": "Raja Platinum White Rice 5 kg",
+      "unit": "5kg",
+      "stock": 3,
+      "price": 75000
+    },
+    {
+      "id": 7,
+      "product_name": "Gula Nomor 7",
+      "unit": "kg",
+      "stock": 10,
+      "price": 15000
+    }
+  ]
+}

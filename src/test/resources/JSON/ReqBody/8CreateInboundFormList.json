@@ -1,0 +1,14 @@
+{
+  "items": [
+    {
+      "product_id": 67,
+      "qty": 10,
+      "unit": "kg"
+    },
+    {
+      "product_id": 68,
+      "qty": 10,
+      "unit": "kg"
+    }
+  ]
+}
